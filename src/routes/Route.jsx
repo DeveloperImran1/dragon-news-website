@@ -3,6 +3,8 @@ import {
   } from "react-router-dom";
 import Root from "../layouts/Root";
 import Home from "../Pages/Home/Home";
+import HomePost from "../Components/HomePost";
+import Swipe from "../Pages/Swipe.jsx/Swipe";
   
   
   const router = createBrowserRouter([
@@ -12,8 +14,19 @@ import Home from "../Pages/Home/Home";
       children: [
         {
             path: "/",
-            element: <Home></Home>
+            element: <Home></Home>,
+            children: [
+              {
+                path: `/`,
+                element: <HomePost></HomePost>,
+                loader: ()=> fetch("./data/news.json")
+              }
+            ]
         },
+        {
+          path: "/swipe",
+          element: <Swipe></Swipe>
+        }
       ]
     },
   ]);
