@@ -1,6 +1,11 @@
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const HomePostCard = ({post}) => {
-    const {thumbnail_url, image_url, author    } = post;
+    const {postDetails} = useContext(AuthContext);
+
+    const {thumbnail_url, image_url, author , details, title, _id   } = post;
   
     return (
         <div>
@@ -14,8 +19,10 @@ const HomePostCard = ({post}) => {
                 </div>
                 <div>
                     <img src={image_url} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500" />
-                    <h2 className="mb-1 text-xl font-semibold">Nam cu platonem posidonium sanctus debitis te</h2>
-                    <p className="text-sm dark:text-gray-600">Eu qualisque aliquando mel, id lorem detraxit nec, ad elit minimum pri. Illum ipsum detracto ne cum. Mundi nemore te ius, vim ad illud atqui apeirian...</p>
+                    <h2 className="mb-1 text-xl font-semibold">{title}</h2>
+                     {
+                        details.length > 200 && <p className="text-sm dark:text-gray-600"> {details.slice(0,200)} <Link onClick={()=> postDetails(post)} to={`/post/${_id}`} className="font-bold text-blue-600" >Show more...</Link>  </p>
+                    } 
                 </div>
                 <div className="flex flex-wrap justify-between">
                     <div className="space-x-2">
